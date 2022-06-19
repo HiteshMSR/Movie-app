@@ -1,17 +1,51 @@
-.App {
-  text-align: center;
+.MovieDetails {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(340px,1fr));
+  Margin: 50px;
+  gap:2rem;
+
 }
 
-
-
-.profile-pic{
-  height: 300px;
-  width: 300px;
-  border-radius:50%;
+.Imagedisplay{
+  height: 650px ;
+  width: 400px ;
   object-fit: cover;
-  transition:0.2s;
+
 }
 
-.profile-pic:hover{
-  transform: scale(1.2);
+.MovieBlock{
+  padding: 20px;
+}
+
+.MovieSummary{
+display:flex;
+justify-content: space-between;
+margin-right: 35px;
+}
+
+.AddMovieContainer{
+    display :flex;
+  flex-direction: column;
+  padding:20px;
+}
+
+input{
+  align:center;
+  width: 60%;
+  height:30px;
+  Margin-left:10%;
+
+
+}
+
+
+.AddMoviebtn{
+
+  color:black;
+  background-color:rgb(213, 213, 213);
+  width:20%;
+  height:30px;
+  border-radius:5px;
+  Margin-left:25%;
+
 }

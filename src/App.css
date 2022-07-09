@@ -1,8 +1,15 @@
 .MovieDetails {
   display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(340px,1fr));
-  Margin: 50px;
-  gap:2rem;
+  display: flex;
+  flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  gap:3rem;
+  Margin-top:20px;
+
+
+  /* grid-template-columns: repeat(auto-fit,minmax(300px,1fr));  */
+
 
 }
 
@@ -20,14 +27,24 @@
 .MovieSummary{
 display:flex;
 justify-content: space-between;
-margin-right: 35px;
+
+
+
+
 }
 
+.CardHolder{
+  padding-bottom:40px;
+  display:flex;
+
+}
 .AddMovieContainer{
     display :flex;
   flex-direction: column;
   padding:20px;
+
 }
+
 
 input{
   align:center;
@@ -47,5 +64,51 @@ input{
   height:30px;
   border-radius:5px;
   Margin-left:25%;
+}
 
+
+.Movie-traier-Container{
+ Padding:20px;
+ margin:30px;
+
+}
+
+.DescBox{
+  height: 190px;
+}
+
+.game-box{
+  height:130px;
+  background :white;
+  color:black;
+  font-size:160px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.game-box:hover{
+  background:grey;
+}
+
+.board{
+
+  display : grid;
+  grid-template-columns: repeat(3,1fr);
+  max-width:500px;
+}
+
+.Game{
+
+margin-left: 30%;
+
+}
+
+.Game h1{}
+
+.RestartButton{
+  Padding-top:10px;
+  padding-left:21%;
 }

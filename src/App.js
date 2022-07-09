@@ -1,62 +1,170 @@
 import logo from './logo.svg';
 import './App.css';
-import { Message } from './Message';
+import { Routes, Route, Link, Navigate, useNavigate } from "react-router-dom";
 import {useState} from 'react';
+import{TicTacToe} from './TicTacToe';
+
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Button from '@mui/material/Button';
+import HomeIcon from '@mui/icons-material/Home';
+import MovieIcon from '@mui/icons-material/Movie';
+import AddIcon from '@mui/icons-material/Add';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import Paper from '@mui/material/Paper'
+import { minHeight } from '@mui/system';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import IconButton from '@mui/material/IconButton';
+import { MovieDetails } from './MovieDetails';
+import { Addmovie } from './Addmovie';
+import { Moviesummary} from './MovieSummary';
+import { EditMovie } from './EditMovie';
+import { BasicForm } from './BasicForm';
+
+
+
 
 
 function App() {
   
-  const InitialMovieList=[
-    { name:"RRR", img:"https://englishtribuneimages.blob.core.windows.net/gallary-content/2021/6/Desk/2021_6$largeimg_977224513.JPG", desc:"RRR is an upcoming Indian Telugu-language period action drama film directed by S. S. Rajamouli, and produced by D. V. V. Danayya of DVV Entertainments.",rating:8.8},
-    {name:"Iron Man 2", img:"https://m.media-amazon.com/images/M/MV5BMTM0MDgwNjMyMl5BMl5BanBnXkFtZTcwNTg3NzAzMw@@._V1_FMjpg_UX1000_.jpg", desc:"With the world now aware that he is Iron Man, billionaire inventor Tony Stark (Robert Downey Jr.) faces pressure from all sides to share his technology with the military. He is reluctant to divulge the secrets of his armored suit, fearing the information will fall into the wrong hands. With Pepper Potts (Gwyneth Paltrow) and Rhodes (Don Cheadle) by his side, Tony must forge new alliances and confront a powerful new enemy.", rating:7},
-    {name:"No Country for Old Men", img:"https://upload.wikimedia.org/wikipedia/en/8/8b/No_Country_for_Old_Men_poster.jpg", desc:"A hunter's life takes a drastic turn when he discovers two million dollars while strolling through the aftermath of a drug deal. He is then pursued by a psychopathic killer who wants the money.", rating:8.1},
-    {name:"Jai Bhim", img:"https://m.media-amazon.com/images/M/MV5BY2Y5ZWMwZDgtZDQxYy00Mjk0LThhY2YtMmU1MTRmMjVhMjRiXkEyXkFqcGdeQXVyMTI1NDEyNTM5._V1_FMjpg_UX1000_.jpg", desc:"A tribal woman and a righteous lawyer battle in court to unravel the mystery around the disappearance of her husband, who was picked up the police on a false case", rating:8.8},
-    {name:"The Avengers", img:"https://terrigen-cdn-dev.marvel.com/content/prod/1x/avengersendgame_lob_crd_05.jpg", desc:"Marvel's The Avengers (classified under the name Marvel Avengers Assemble in the United Kingdom and Ireland), or simply The Avengers, is a 2012 American superhero film based on the Marvel Comics superhero team of the same name.", rating:8}
   
-  ]
-  const [moviedata,setMoviedata]=useState(InitialMovieList)
+  const InitialMovieList=[
+
+    {
+    
+    "name": "RRR",
+    "img":
+    "https://englishtribuneimages.blob.core.windows.net/gallary-content/2021/6/Desk/2021_6$largeimg_977224513.JPG",
+    "rating": 8.8,
+    "desc": "RRR is an upcoming Indian Telugu-language period action drama film directed by S. S. Rajamouli, and produced by D. V. V. Danayya of DVV Entertainments.",
+    "trailer": "https://www.youtube.com/embed/f_vbAtFSEc0"
+    },
+    {
+    "name": "Iron man 2",
+    "img": "https://m.media-amazon.com/images/M/MV5BMTM0MDgwNjMyMl5BMl5BanBnXkFtZTcwNTg3NzAzMw@@._V1_FMjpg_UX1000_.jpg",
+    "rating": 7,
+    "desc": "With the world now aware that he is Iron Man, billionaire inventor Tony Stark (Robert Downey Jr.) faces pressure from all sides to share his technology with the military. He is reluctant to divulge the secrets of his armored suit, <fe>aring the information will fall into the wrong hands. With Pepper Potts (Gwyneth Paltrow) and Rhodes (Don Cheadle) by his side, Tony must forge new alliances and confront a powerful new enemy.",
+    "trailer": "https://www.youtube.com/embed/wKtcmiifycU"
+    },
+    {
+    
+    "name": "The Incredible Hulk",
+    "img": "https://www.commonsensemedia.org/sites/default/files/styles/ratio_2_3_medium/public/product-images/csm-movie/incredible-hulk.jpg",
+    "rating": 8.1,
+    "desc": "The Incredible Hulk is a 2008 American superhero film based on the Marvel Comics character the Hulk. Produced by Marvel Studios and distributed by Universal Pictures, it is the second film in the Marvel.",
+    "trailer": "https://www.youtube.com/watch?v=t7J1KAnwoF8"
+    },
+    {
+    
+    "name": "Jai Bhim",
+    "img": "https://m.media-amazon.com/images/M/MV5BY2Y5ZWMwZDgtZDQxYy00Mjk0LThhY2YtMmU1MTRmMjVhMjRiXkEyXkFqcGdeQXVyMTI1NDEyNTM5._V1_FMjpg_UX1000_.jpg",
+    "desc": "A tribal woman and a righteous lawyer battle in court to unravel the mystery around the disappearance of her husband, who was picked up the police on a false case",
+    "rating": 8.8,
+    "trailer": "https://www.youtube.com/embed/nnXpbTFrqXA"
+    },
+    {
+    
+    "name": "The Avengers",
+    "rating": 8,
+    "desc": "Marvel's The Avengers (classified under the name Marvel Avengers\n Assemble in the United Kingdom and Ireland), or simply The Avengers, is\n a 2012 American superhero film based on the Marvel Comics superhero team\n of the same name.",
+    "img": "https://terrigen-cdn-dev.marvel.com/content/prod/1x/avengersendgame_lob_crd_05.jpg",
+    "trailer": "https://www.youtube.com/embed/eOrNdBpGMv8"
+    },
+    {
+    
+    "name": "Interstellar",
+    "img": "https://m.media-amazon.com/images/I/A1JVqNMI7UL._SL1500_.jpg",
+    "rating": 8.6,
+    "desc": "When Earth becomes uninhabitable in the future, a farmer and ex-NASA\n pilot, Joseph Cooper, is tasked to pilot a spacecraft, along with a team\n of researchers, to find a new planet for humans.",
+    "trailer": "https://www.youtube.com/embed/zSWdZVtXT7E"
+    },
+    {
+    
+    "name": "Baahubali",
+    "img": "https://flxt.tmsimg.com/assets/p11546593_p_v10_af.jpg",
+    "rating": 8,
+    "desc": "In the kingdom of Mahishmati, Shivudu falls in love with a young warrior woman. While trying to woo her, he learns about the conflict-ridden past of his family and his true legacy.",
+    "trailer": "https://www.youtube.com/embed/sOEg_YZQsTI"
+    },
+    {
+    
+    "name": "Ratatouille",
+    "img": "https://resizing.flixster.com/gL_JpWcD7sNHNYSwI1ff069Yyug=/ems.ZW1zLXByZC1hc3NldHMvbW92aWVzLzc4ZmJhZjZiLTEzNWMtNDIwOC1hYzU1LTgwZjE3ZjQzNTdiNy5qcGc=",
+    "rating": 8,
+    "descx": "Remy, a rat, aspires to become a renowned French chef. However, he fails to realise that people despise rodents and will never enjoy a meal cooked by him.",
+    "trailer": "https://www.youtube.com/embed/NgsQ8mVkN8w"
+    }
+    ]
+  // const [moviedata,setMoviedata]=useState(InitialMovieList)
+  const navigate=useNavigate();
+  const [themeColor,setThemeColor]=useState('light')
+  const darkTheme = createTheme({
+    palette: {
+      mode: themeColor,
+    },
+  });
 
   return (
+    <>
+     <ThemeProvider theme={darkTheme}>
+     <Paper elevation={18} style={{minHeight:"100vh", borderRadius:"0px"}} >
+    <div>
+      <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static">
+        <Toolbar>
+          <Button color="inherit" onClick={()=>navigate("/")} startIcon={<HomeIcon />}>Home</Button>
+          <Button color="inherit" onClick={()=>navigate("/MovieDetails")} startIcon={<MovieIcon/>}>Movies</Button>
+          <Button color="inherit" onClick={()=>navigate("/AddMovie")} startIcon={<AddIcon />}>Add Movies</Button>
+          <Button color="inherit" onClick={()=>navigate("/TicTacToe")} startIcon={<AddIcon />}>Tic-Tac-Toe</Button>
+          <Button color="inherit" onClick={()=>{setThemeColor(themeColor==='light' ? 'dark' : 'light')}} 
+                startIcon={themeColor==='light' ?<Brightness7Icon /> : <Brightness4Icon/>} >  
+                {themeColor==='light' ? "Dark" : "Light"} Mode
+
+            {/* {themeColor ==='dark' ?  <IconButton onClick={()=>{setThemeColor('light')}}><Brightness4Icon/>LightMode</IconButton> : <IconButton onClick={()=>{setThemeColor('dark')}}><Brightness7Icon/>DarkMode </IconButton>}  */}
+            </Button>
+        </Toolbar>
+      </AppBar>
+    </Box>
+    </div>
+
     <div> 
-      <Addmovie moviedata={moviedata} setMoviedata={setMoviedata} />
-    <div className="MovieDetails">
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/AddMovie" element={<Addmovie  />} /> 
+        <Route path="/404" element={<NotFound />}></Route>
+        <Route path="/Films" element={<Navigate replace to="/MovieDetails"/>}></Route>
+        <Route path="*" element={<Navigate replace to="/404"/>}></Route>
+        <Route path="/MovieDetails" element={<MovieDetails />}></Route>
+         <Route path="/MovieDetails/:id" element={<Moviesummary />}></Route> 
+        <Route path="/TicTacToe" element={<TicTacToe/>}></Route>
+        <Route path="/EditMovie/:id" element={<EditMovie/>} ></Route>
+        <Route path="/BasicForm" element={<BasicForm/>}></Route>
+      </Routes>
+      {/* <div className="MovieDetails">
       {moviedata.map( (obj) => (<Message props={obj} />))}
+    </div> */}
     </div>
-    </div>
+    </Paper>
+    </ThemeProvider>
+    </>
   ); 
 }
 
 export default App;
 
-
-function Addmovie({moviedata, setMoviedata}){
-
-  const [name,setName]=useState("")
-  const [image,setImage]=useState("")
-  const [rating,setRating]=useState("")
-  const [summary,setSummary]=useState("")
-
+function NotFound(){
   return(
-      <div>
-        
-              <div className="AddMovieContainer">
-          
-                  <input type="text" id="moviename" placeholder="Name" onChange= {(event)=>setName(event.target.value)}></input><br />
-                  <input type="text" id="movieimage" placeholder="Poster" onChange={(event) => setImage(event.target.value)}></input><br />
-                  <input type="text" id="movierating" placeholder="Rating" onChange={(event) => setRating(event.target.value)}></input><br />
-                  <input type="text" id="moviesummary" placeholder="Summary" onChange={(event) => setSummary(event.target.value)}></input><br />
-                  {<button className="AddMoviebtn " onClick={()=>{
-                    const newmovie={
-                      name:name,
-                      img:image,
-                      rating:rating,
-                      desc:summary,
-                    }
-                    setMoviedata([...moviedata, newmovie])
-                  }}>Add Movie</button>  } 
-              </div>
-      </div> 
-  )
+    <h1>NotFound</h1>
 
-  
+  )
 }
+function Home(){
+  return(
+<h2>Welcome to the Movie-App</h2>
+  )
+}
+
+
+

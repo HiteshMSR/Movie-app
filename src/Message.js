@@ -29,7 +29,7 @@ export function Message({ movie, id, deleteButton,editButton}) {
       <CardMedia
         component="img"
         height="650px"
-        image={movie.img}
+        image={movie.poster}
         alt="green iguana"
       />
       <CardContent>
@@ -50,7 +50,7 @@ export function Message({ movie, id, deleteButton,editButton}) {
             </h2>
      
         <p style={styles}>⭐ {movie.rating}</p>
-        {show ? <p className="DescBox">{movie.desc}</p> : null}
+        {show ? <p className="DescBox">{movie.summary}</p> : null}
       </CardContent>
       <CardActions>
       <Counter /> {deleteButton} <span/> {editButton}

@@ -1,6 +1,7 @@
 import { FormatItalicTwoTone, FormatLineSpacing } from "@mui/icons-material";
 import {useFormik} from "formik";
 import * as yup from "yup";
+import './App.css';
 
 const formValidationSchema = yup.object({
   email: yup.string().min(5).required().email(),
